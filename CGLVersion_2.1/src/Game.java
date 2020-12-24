@@ -22,19 +22,34 @@
 
 /**
  * @author shruti parikh
+ * 
+ */
+/**
+ * 
+ * @param Board board -  Board class object
+ * @paam kthGen -  integer type
  *
  */
-
 public class Game{
 	
 	public Board board;
 	public int kthGen; 
-	
+/**
+ * 	
+ * @param kthGen
+ * @param board
+ * This constructor is used to create a new Game type of object based on the input given to 
+ * the constructor in the int parameter and the Board object parameter.
+ */
 	public Game(int kthGen,Board board) {
 		this.kthGen = kthGen;
 		this.board = board;	
 	}
 	
+	/**
+	 * This is  a method - kthGeneration which is printing the nextGen method 
+	 * from the board class untill the while loop is satisfied.
+	 */
 	public void kthGenerations() {
 		//Cell[][] dub = new Cell[this,board.dim][]
 		

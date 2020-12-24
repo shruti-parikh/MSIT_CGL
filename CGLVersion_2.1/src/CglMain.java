@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 /**
- * 
+ * This is the main method
  */
 
 /**
@@ -13,6 +13,12 @@ public class CglMain {
 
 	/**
 	 * @param args
+	 * This main m,ethod takes user inputs as scanner object is created.
+	 * n = dimension of board
+	 * m = no. of live cells
+	 * k = no of iterations
+	 * So initially the first generation id printed where create board method is taken from Board class 
+	 * and then NextGeneration method is called from Game class.
 	 */
 	public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
