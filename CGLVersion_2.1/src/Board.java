@@ -1,3 +1,11 @@
+import java.util.Scanner;
+
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.robot.Robot;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Window;
+
 /**
  * This class defines the code used used in the creating of board, current generation and also next generation
  * This class will always return a Cell object array,
@@ -22,8 +30,22 @@
  *
  */
 public class Board {
+	
   public int dim;
   public Cell[][] board;
+  
+  
+  public Board(int dim) {
+	    this.dim = dim;
+	    this.board = new Cell[dim][dim];
+	    for (int i = 0; i < board.length; i++) {
+	        for (int j = 0; j < board.length; j++) {
+	          board[i][j] = new Cell(i, j, false);
+	        }
+	      }  
+	  }
+  
+  
 
   /**
  * This constructor is used to create a new Board type of object based on the input given to 
@@ -46,7 +68,35 @@ public class Board {
   
   
   
- /**
+ public Board(int boardSizeWidth, Scanner sc) {
+	 this.dim = boardSizeWidth;
+	 this.board = new Cell[dim][dim];
+	    for (int i = 0; i < board.length; i++) {
+	        for (int j = 0; j < board.length; j++) {
+	          board[i][j] = new Cell(i, j, false);
+	        }
+	      }
+	   while(sc.hasNextLine()) {
+		   String[] s1 = sc.nextLine().split(" ");
+		   int row = Integer.parseInt(s1[0]);
+		   int col = Integer.parseInt(s1[1]);
+		   board[row][col].setAlive(true);   
+	   }
+}
+
+
+
+public Board(Board oddGameBoard) {
+	this.dim = oddGameBoard.dim;
+	this.board = oddGameBoard.board;
+	
+	
+	// TODO Auto-generated constructor stub
+}
+
+
+
+/**
   * This is the createBoard method which take a int array as parameter.
   * Inside this we are creating a Cell board object array as per the dimentions given in the constructor
   * later, iterating through the dimentions we are making all false [dim][dim] array.
@@ -166,5 +216,31 @@ public class Board {
     board = dub;
    
   }
+
+
+
+public void fillingTheCanvas(Pane window) {
+	for (int i = 0; i < this.dim; i++) {
+	      for (int j = 0; j < this.dim; j++) {
+	    	  if(board[i][j].getAlive() == true) {
+	    	  Rectangle r = new Rectangle(6,6);
+	    	  r.setFill(Color.BLUE);
+	    	  r.setStroke(Color.BLACK);
+	    	  r.setX(6*i);
+	    	  r.setY(6*j);
+	    	  window.getChildren().add(r);
+	    	  }
+	      }
+	    }
+	}
+
+
+
+
+
+
+
+
 }
+
 

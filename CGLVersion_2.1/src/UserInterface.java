@@ -1,4 +1,4 @@
-package conwayJavaFX;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,6 +24,7 @@ import javafx.scene.shape.Rectangle;
  * <p> Copyright: Lynn Robert Carter © 2018-05-06 </p>
  * 
  * @author Lynn Robert Carter
+ * @co-author Shruti Parikh 
  * 
  * @version 2.03	2018-05-07 An implementation baseline for JavaFX graphics
  * 
@@ -77,10 +78,10 @@ public class UserInterface {
 	// These attributes define the Board used by the simulation and the graphical representation
 	// There are two Boards. The previous Board and the new Board.  Once the new Board has been
 	// displayed, it becomes the previous Board for the generation of the next new Board.
-	//private Board oddGameBoard = new Board();		// The Board for odd frames of the animation
+	private Board oddGameBoard; 		// The Board for odd frames of the animation
 	private Pane oddCanvas = new Pane();			// Pane that holds its graphical representation
 	
-	//private Board evenGameBoard =  new Board();	// The Board for even frames of the animation
+	private Board evenGameBoard;	// The Board for even frames of the animation
 	private Pane evenCanvas = new Pane();			// Pane that holds its graphical representation
 
 	private boolean toggle = true;					// A two-state attribute that specifies which
@@ -265,17 +266,25 @@ public class UserInterface {
 	 * board for the simulation.
 	 */
 	private void loadImageData() {
-		try {
-			// Your code goes here......
+		int boardSizeWidth=80;
+		try {                                                      //This method runs in background when the load pattern button is clicked
 			
+			// Your code goes here......
+			Scanner sc = new Scanner(new File(str_FileName));      //reading the file using scanner object
+			oddGameBoard = new Board(boardSizeWidth,sc);           // creating oddGameBoard by passing boardsize and scanner object to board constructor
+			evenGameBoard = new Board(boardSizeWidth);             // creating evenGameBoard by passing boardsize to board constructor 
+			//System.out.println(oddGameBoard);
+			
+			sc.close();                                            // closing scanner class.
 		}
 		catch (Exception e)  {
 			// Since we have already done this check, this exception should never happen
 		}
-		
+		oddGameBoard.fillingTheCanvas(oddCanvas);     //passing pane object to fillingTheCanvas method that is in board.java file.
+		window.getChildren().add(oddCanvas);         // 
 		button_Load.setDisable(true);				// Disable the Load button, since it is done
 		button_Start.setDisable(false);				// Enable the Start button
-	};												// and wait for the User to press it.
+	}												// and wait for the User to press it.
 
 	/**********
 	 * This method removes the start button, sets up the stop button, and starts the simulation
@@ -289,7 +298,7 @@ public class UserInterface {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), ae -> runSimulation()));
 		timeline.setCycleCount(Animation.INDEFINITE);	// The animation runs until it is stopped
 		timeline.play();								// Start the animation
-	};
+	}
 	
 	/**********
 	 * This method display the current state of the odd board and terminates the application
@@ -301,12 +310,40 @@ public class UserInterface {
 	}
 
 	/**********
-	 * This method is run each time the timeline triggers it
+	 * This method is run each time the timeline triggers it. There are two boards used. OddGameBoard and EvenGame Board.
+	 * Both the boards are toggels by continuously displayig the next generations of the given current input.
 	 */
-	public void runSimulation(){
-		// Use the toggle to flip back and forth between the current generation and next generation boards.
+	public void runSimulation(){                                         // Use the toggle to flip back and forth between the 
+		 																//current generation and next generation boards.
 		
-		// Your code goes here...
+		if(!toggle) {                                                  //
+//			window.getChildren().remove(oddCanvas);
+//			evenCanvas=new Pane();
+			window.getChildren().remove(evenCanvas);               // removing evenCanvas components from the pane
+			//oddGameBoard.setBoard(evenGameBoard.nextGen());
+			evenGameBoard.nextGen();                               // next generation of evenGameBoard
+			oddCanvas=new Pane();                                  //// creating new pane of oddCanvas
+			oddGameBoard = new Board(evenGameBoard);
+
+			oddGameBoard.fillingTheCanvas(oddCanvas);              //sending oddCanvas as the argument for fillingTheCanvas method which is in Board.java
+			window.getChildren().add(oddCanvas);                   // adding oddCanvas to the window.
+			toggle=!toggle;                                        // changing the toggle value 
+		}
+		else {
+//			window.getChildren().remove(evenCanvas);
+//			oddCanvas=new Pane();
+//			oddGameBoard.fillTheCanvas(oddCanvas);
+			window.getChildren().remove(oddCanvas);                     // removing the current generation components from the pane
+			//evenGameBoard.setBoard(oddGameBoard.nextGen());
+			oddGameBoard.nextGen();                                    // next generation of oddGameBoard
+			evenCanvas=new Pane();                                     // creating new pane of evenCanvas 
+			evenGameBoard = new Board(oddGameBoard);
+			evenGameBoard.fillingTheCanvas(evenCanvas);                // sending evenCanvas as the argument for fillingTheCanvas method which is in Board.java
+			window.getChildren().add(evenCanvas);                     // adding evenCanvas to the window.
+			toggle=!toggle;                                           // Changing the toggle value
+		}
+
+		
 	}
 
 	/**********
