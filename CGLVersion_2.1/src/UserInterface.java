@@ -25,6 +25,7 @@ import javafx.scene.shape.Rectangle;
  * 
  * @author Lynn Robert Carter
  * @co-author Shruti Parikh 
+ * took help from shrestha while implementing runSimulation method().
  * 
  * @version 2.03	2018-05-07 An implementation baseline for JavaFX graphics
  * 
@@ -266,7 +267,7 @@ public class UserInterface {
 	 * board for the simulation.
 	 */
 	private void loadImageData() {
-		int boardSizeWidth=80;
+		int boardSizeWidth=135;
 		try {                                                      //This method runs in background when the load pattern button is clicked
 			
 			// Your code goes here......
@@ -313,10 +314,10 @@ public class UserInterface {
 	 * This method is run each time the timeline triggers it. There are two boards used. OddGameBoard and EvenGame Board.
 	 * Both the boards are toggels by continuously displayig the next generations of the given current input.
 	 */
-	public void runSimulation(){                                         // Use the toggle to flip back and forth between the 
-		 																//current generation and next generation boards.
+	public void runSimulation(){                                    // Use the toggle to flip back and forth between the 
+		 															//current generation and next generation boards.
 		
-		if(!toggle) {                                                  //
+		if(!toggle) {                                               
 //			window.getChildren().remove(oddCanvas);
 //			evenCanvas=new Pane();
 			window.getChildren().remove(evenCanvas);               // removing evenCanvas components from the pane
