@@ -270,7 +270,7 @@ public class UserInterface {
 		int boardSizeWidth=135;
 		try {                                                      //This method runs in background when the load pattern button is clicked
 			
-			// Your code goes here......
+			
 			Scanner sc = new Scanner(new File(str_FileName));      //reading the file using scanner object
 			oddGameBoard = new Board(boardSizeWidth,sc);           // creating oddGameBoard by passing boardsize and scanner object to board constructor
 			evenGameBoard = new Board(boardSizeWidth);             // creating evenGameBoard by passing boardsize to board constructor 
@@ -305,7 +305,7 @@ public class UserInterface {
 	 * This method display the current state of the odd board and terminates the application
 	 */
 	private void stopConway() {
-		// Your code goes here to display the current state of the board.
+		
 		System.out.println("Game is stopping....");
 		System.exit(0);
 	}
@@ -318,24 +318,16 @@ public class UserInterface {
 		 															//current generation and next generation boards.
 		
 		if(!toggle) {                                               
-//			window.getChildren().remove(oddCanvas);
-//			evenCanvas=new Pane();
 			window.getChildren().remove(evenCanvas);               // removing evenCanvas components from the pane
-			//oddGameBoard.setBoard(evenGameBoard.nextGen());
 			evenGameBoard.nextGen();                               // next generation of evenGameBoard
 			oddCanvas=new Pane();                                  //// creating new pane of oddCanvas
 			oddGameBoard = new Board(evenGameBoard);
-
 			oddGameBoard.fillingTheCanvas(oddCanvas);              //sending oddCanvas as the argument for fillingTheCanvas method which is in Board.java
 			window.getChildren().add(oddCanvas);                   // adding oddCanvas to the window.
 			toggle=!toggle;                                        // changing the toggle value 
 		}
 		else {
-//			window.getChildren().remove(evenCanvas);
-//			oddCanvas=new Pane();
-//			oddGameBoard.fillTheCanvas(oddCanvas);
 			window.getChildren().remove(oddCanvas);                     // removing the current generation components from the pane
-			//evenGameBoard.setBoard(oddGameBoard.nextGen());
 			oddGameBoard.nextGen();                                    // next generation of oddGameBoard
 			evenCanvas=new Pane();                                     // creating new pane of evenCanvas 
 			evenGameBoard = new Board(oddGameBoard);

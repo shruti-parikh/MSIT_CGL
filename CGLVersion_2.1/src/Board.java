@@ -33,12 +33,12 @@ public class Board {
   public int dim;
   public Cell[][] board;
 
-  public Board(int dim) { // default constructor of class Board
-    this.dim = dim; // creating the objects for the variables 
+  public Board(int dim) {            					 // default constructor of class Board
+    this.dim = dim;                  					// creating the objects for the variables 
     this.board = new Cell[dim][dim];
-    for (int i = 0; i < board.length; i++) { // itterating through each cell as per board.length 
+    for (int i = 0; i < board.length; i++) {           	// itterating through each cell as per board.length 
       for (int j = 0; j < board.length; j++) {
-        board[i][j] = new Cell(i, j, false); // initially setting each cell with false 
+        board[i][j] = new Cell(i, j, false); 			// initially setting each cell with false 
       }
     }
   }
@@ -48,37 +48,37 @@ public class Board {
  * the constructor in the int parameter 
  * @param dim
  */
-  public Board(int dim, int l[][]) { // overloading constructor of class Board with dim and integer array Int[][] as the parameters
-    this.dim = dim; // i[][] contains the corodinates of live cells.
+  public Board(int dim, int l[][]) { 				// overloading constructor of class Board with dim and integer array Int[][] as the parameters
+    this.dim = dim; 								// i[][] contains the corodinates of live cells.
     this.board = new Cell[dim][dim];
-    for (int i = 0; i < board.length; i++) { //itterating through each cell as per board.length
+    for (int i = 0; i < board.length; i++) { 		//itterating through each cell as per board.length
       for (int j = 0; j < board.length; j++) {
-        board[i][j] = new Cell(i, j, false); // initially setting each cell with false 
+        board[i][j] = new Cell(i, j, false); 		// initially setting each cell with false 
       }
     }
-    for (int k = 0; k < l.length; k++) { // itterating through livecells aray length 
-      board[l[k][0]][l[k][1]].setAlive(true); // setting those coordintates as true.
+    for (int k = 0; k < l.length; k++) { 			// itterating through livecells aray length 
+      board[l[k][0]][l[k][1]].setAlive(true); 		// setting those coordintates as true.
     }
 
   }
 
-  public Board(int boardSizeWidth, Scanner sc) { // overloading constructor of class Board with dim and Scanner object as the parameters
+  public Board(int boardSizeWidth, Scanner sc) {			 // overloading constructor of class Board with dim and Scanner object as the parameters
     this.dim = boardSizeWidth;
     this.board = new Cell[dim][dim];
-    for (int i = 0; i < board.length; i++) { //itterating through each cell as per board.length
+    for (int i = 0; i < board.length; i++) { 				//itterating through each cell as per board.length
       for (int j = 0; j < board.length; j++) {
-        board[i][j] = new Cell(i, j, false); // initially setting each cell with false 
+        board[i][j] = new Cell(i, j, false); 				// initially setting each cell with false 
       }
     }
-    while (sc.hasNextLine()) { // looping untill the channer obj has inputs
-      String[] s1 = sc.nextLine().split(" "); // splitting the input based on " " and storing it in string
-      int row = Integer.parseInt(s1[0]); // as there are only 2 indexes -> index 0 is stored as row
-      int col = Integer.parseInt(s1[1]); // index 1 is stored as col
-      board[row][col].setAlive(true); //  setting those rows and col corodinates as true in the overall board.
+    while (sc.hasNextLine()) { 								// looping untill the channer obj has inputs
+      String[] s1 = sc.nextLine().split(" "); 				// splitting the input based on " " and storing it in string
+      int row = Integer.parseInt(s1[0]); 					// as there are only 2 indexes -> index 0 is stored as row
+      int col = Integer.parseInt(s1[1]); 					// index 1 is stored as col
+      board[row][col].setAlive(true); 						//  setting those rows and col corodinates as true in the overall board.
     }
   }
 
-  public Board(Board oddGameBoard) { // overloading the constructor by giving board object as parameter 
+  public Board(Board oddGameBoard) {						 // overloading the constructor by giving board object as parameter 
     this.dim = oddGameBoard.dim;
     this.board = oddGameBoard.board;
   }
@@ -88,16 +88,16 @@ public class Board {
  * @param window
  */
 
-  public void fillingTheCanvas(Pane window) { //Establish the window which will be displayed in the GUI
-    for (int i = 0; i < this.dim; i++) { // writing the nested forloop to iterate through each and every cell 
-      for (int j = 0; j < this.dim; j++) { //of the board within the dimension sof the board.
-        if (board[i][j].getAlive() == true) { // checking if the cell is live or not.
-          Rectangle r = new Rectangle(6, 6); //creating rectangle cell by giving the size of each small cells as 6,6
-          r.setFill(Color.BLUE); //setting the colour of each livecell with blue color
-          r.setStroke(Color.BLACK); // Giving the boundary to each live cells
-          r.setX(6 * i); // seting the x coordinate as multiple of 6
-          r.setY(6 * j); // seting the y coordinate as multiple of 6
-          window.getChildren().add(r); // adding this rectangle to the window.
+  public void fillingTheCanvas(Pane window) {     //Establish the window which will be displayed in the GUI
+    for (int i = 0; i < this.dim; i++) {         // writing the nested forloop to iterate through each and every cell 
+      for (int j = 0; j < this.dim; j++) {       //of the board within the dimension sof the board.
+        if (board[i][j].getAlive() == true) { 	// checking if the cell is live or not.
+          Rectangle r = new Rectangle(6, 6); 	//creating rectangle cell by giving the size of each small cells as 6,6
+          r.setFill(Color.BLUE); 				//setting the colour of each livecell with blue color
+          r.setStroke(Color.BLACK); 			// Giving the boundary to each live cells
+          r.setX(6 * i); 						// seting the x coordinate as multiple of 6
+          r.setY(6 * j); 						// seting the y coordinate as multiple of 6
+          window.getChildren().add(r); 			// adding this rectangle to the window.
         }
       }
     }
